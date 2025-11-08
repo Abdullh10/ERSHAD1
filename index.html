@@ -9,8 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pdfmake@0.2.7/build/pdfmake.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pdfmake@0.2.7/build/vfs_fonts.js"></script>
     <style>
         :root {
             --primary-color: #1a5276;
@@ -31,11 +31,6 @@
             background-color: var(--background-color);
             color: var(--text-color);
             line-height: 1.6;
-        }
-        
-        /* تطبيق الخط على جميع العناصر */
-        canvas, table, button, input, select, textarea {
-            font-family: 'Tajawal', sans-serif !important;
         }
         
         .navbar {
@@ -360,7 +355,6 @@
             color: var(--primary-color);
         }
         
-        /* تحسينات جديدة */
         .search-box {
             position: relative;
             margin-bottom: 20px;
@@ -443,7 +437,6 @@
             font-size: 0.8rem;
         }
         
-        /* تحسينات للمبادرة */
         .timeline-container {
             position: relative;
             padding: 20px 0;
@@ -619,7 +612,6 @@
     </style>
 </head>
 <body>
-    <!-- شريط التنقل -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand" href="#">
@@ -660,18 +652,14 @@
         </div>
     </nav>
 
-    <!-- مؤشر التحميل -->
     <div class="loading-overlay" id="loading-overlay">
         <div class="spinner"></div>
     </div>
 
-    <!-- إشعارات -->
     <div class="notification" id="notification"></div>
 
     <div class="container mt-4">
-        <!-- لوحة التحكم -->
         <div id="dashboard" class="page-section active">
-            <!-- قسم مبادرة هُمام -->
             <div class="initiative-highlight">
                 <div class="row">
                     <div class="col-md-8">
@@ -687,7 +675,6 @@
                 </div>
             </div>
 
-            <!-- أهداف المبادرة -->
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -754,7 +741,6 @@
                 </div>
             </div>
 
-            <!-- قسم الإحصائيات العامة -->
             <div class="row">
                 <div class="col-md-3">
                     <div class="card stats-card">
@@ -794,7 +780,6 @@
                 </div>
             </div>
 
-            <!-- الرسوم البيانية -->
             <div class="row">
                 <div class="col-md-6">
                     <div class="card">
@@ -822,7 +807,6 @@
                 </div>
             </div>
 
-            <!-- أفضل 5 طلاب متحسنين -->
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -843,7 +827,6 @@
                                         </tr>
                                     </thead>
                                     <tbody id="top-improvers-table">
-                                        <!-- سيتم ملء البيانات بواسطة JavaScript -->
                                     </tbody>
                                 </table>
                             </div>
@@ -853,7 +836,6 @@
             </div>
         </div>
 
-        <!-- صفحة قائمة الطلاب -->
         <div id="students-list" class="page-section">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
@@ -861,7 +843,6 @@
                     <button class="btn btn-primary" id="add-student-btn">إضافة طالب جديد</button>
                 </div>
                 <div class="card-body">
-                    <!-- شريط البحث والتصدير -->
                     <div class="row mb-3">
                         <div class="col-md-8">
                             <div class="search-box">
@@ -881,7 +862,6 @@
                         </div>
                     </div>
                     
-                    <!-- نموذج إضافة طالب جديد -->
                     <div class="add-student-form" id="add-student-form" style="display: none;">
                         <h4 class="mb-4">إضافة طالب جديد</h4>
                         
@@ -1002,9 +982,8 @@
                         </div>
                     </div>
                     
-                    <!-- جدول الطلاب -->
                     <div class="table-responsive">
-                        <table class="student-table" id="students-table-element">
+                        <table class="student-table">
                             <thead>
                                 <tr>
                                     <th>اسم الطالب</th>
@@ -1025,7 +1004,6 @@
                                 </tr>
                             </thead>
                             <tbody id="students-table">
-                                <!-- سيتم ملء البيانات بواسطة JavaScript -->
                             </tbody>
                         </table>
                     </div>
@@ -1033,7 +1011,6 @@
             </div>
         </div>
 
-        <!-- صفحة الخطط العلاجية -->
         <div id="treatment-plans" class="page-section">
             <div class="card">
                 <div class="card-header">
@@ -1069,7 +1046,6 @@
                         </div>
                     </div>
 
-                    <!-- نموذج الخطة الفردية -->
                     <div id="individual-plan-form" class="plan-section">
                         <h4>نموذج الخطة العلاجية الفردية</h4>
                         <p>تم تصميم هذا النموذج لدعم الطلاب الذين يحتاجون إلى متابعة فردية لتحسين تحصيلهم الدراسي وسلوكهم.</p>
@@ -1148,7 +1124,6 @@
                         <div class="progress-tracker">
                             <h5>متابعة التقدم الأسبوعي</h5>
                             <div class="week-tracker" id="week-tracker">
-                                <!-- سيتم إضافة أسابيع المتابعة هنا -->
                             </div>
                         </div>
                         
@@ -1156,7 +1131,6 @@
                         <button class="btn btn-outline-secondary me-2" id="export-individual-plan">تصدير PDF</button>
                     </div>
 
-                    <!-- نموذج الخطة الجماعية -->
                     <div id="group-plan-form" class="plan-section" style="display: none;">
                         <h4>نموذج الخطة العلاجية الجماعية</h4>
                         <p>تم تصميم هذا النموذج لدعم مجموعة من الطلاب المتشابهين في التحديات التعليمية والسلوكية.</p>
@@ -1198,7 +1172,6 @@
                         <div class="mb-3">
                             <label class="form-label">الطلاب المستهدفون:</label>
                             <div class="form-control" style="height: 150px; overflow-y: auto;" id="group-students-list">
-                                <!-- سيتم إضافة قائمة الطلاب هنا -->
                             </div>
                         </div>
                         
@@ -1281,7 +1254,6 @@
                 </div>
             </div>
             
-            <!-- تقرير متابعة الخطط العلاجية -->
             <div class="card mt-4">
                 <div class="card-header">
                     تقرير متابعة الخطط العلاجية
@@ -1302,7 +1274,6 @@
                                 </tr>
                             </thead>
                             <tbody id="treatment-plans-table">
-                                <!-- سيتم ملء البيانات بواسطة JavaScript -->
                             </tbody>
                         </table>
                     </div>
@@ -1310,7 +1281,6 @@
             </div>
         </div>
 
-        <!-- صفحة المعلمين -->
         <div id="teachers" class="page-section">
             <div class="card">
                 <div class="card-header">
@@ -1318,13 +1288,11 @@
                 </div>
                 <div class="card-body">
                     <div class="teachers-list" id="teachers-list">
-                        <!-- سيتم ملء البيانات بواسطة JavaScript -->
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- صفحة التقارير -->
         <div id="reports" class="page-section">
             <div class="card">
                 <div class="card-header">
@@ -1369,9 +1337,7 @@
             </div>
         </div>
 
-        <!-- صفحة تفاصيل المبادرة -->
         <div id="initiative-details" class="page-section">
-            <!-- إطار زمني للمبادرة -->
             <div class="card">
                 <div class="card-header">
                     الإطار الزمني لمبادرة هُمام
@@ -1426,7 +1392,6 @@
                 </div>
             </div>
 
-            <!-- المخاطر وخطة التخفيف -->
             <div class="card mt-4">
                 <div class="card-header">
                     المخاطر وخطة التخفيف
@@ -1457,7 +1422,6 @@
                 </div>
             </div>
 
-            <!-- سياسة الاستخدام التربوي -->
             <div class="card mt-4">
                 <div class="card-header">
                     سياسة الاستخدام التربوي للأداة
@@ -1497,7 +1461,6 @@
                 </div>
             </div>
 
-            <!-- مؤشرات الأداء الرئيسية -->
             <div class="card mt-4">
                 <div class="card-header">
                     مؤشرات الأداء الرئيسية (KPIs)
@@ -1558,7 +1521,6 @@
         </div>
     </div>
 
-    <!-- الفوتر -->
     <footer class="mt-5">
         <div class="container">
             <div class="row">
@@ -1581,17 +1543,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // تكوين الخط العربي لـ pdfmake
-        pdfMake.fonts = {
-            Tajawal: {
-                normal: 'https://cdn.jsdelivr.net/gh/google/fonts/ofl/tajawal/Tajawal-Regular.ttf',
-                bold: 'https://cdn.jsdelivr.net/gh/google/fonts/ofl/tajawal/Tajawal-Bold.ttf',
-                italics: 'https://cdn.jsdelivr.net/gh/google/fonts/ofl/tajawal/Tajawal-Regular.ttf',
-                bolditalics: 'https://cdn.jsdelivr.net/gh/google/fonts/ofl/tajawal/Tajawal-Bold.ttf'
-            }
-        };
-
-        // بيانات الطلاب من ملف Excel المرفق - جميع الطلاب الـ 28
         let studentsData = JSON.parse(localStorage.getItem('humamStudentsData')) || [
             {
                 name: "ابراهيم بن عباس بن حسين اليامي",
@@ -1735,7 +1686,6 @@
             }
         ];
 
-        // بيانات المعلمين من ملف Excel المرفق
         const teachersData = [
             { name: "عبدالله محمد حمدي", subject: "كيمياء" },
             { name: "عبدالعزيز عايض القحطاني", subject: "رياضيات" },
@@ -1745,7 +1695,6 @@
             { name: "فارس سعيد الغامدي", subject: "التقنية الرقمية" }
         ];
 
-        // بيانات الخطط العلاجية
         let treatmentPlans = JSON.parse(localStorage.getItem('humamTreatmentPlans')) || [
             {
                 id: 1,
@@ -1779,20 +1728,11 @@
             }
         ];
 
-        // دالة لحفظ البيانات في localStorage
-        function saveDataToLocalStorage() {
-            localStorage.setItem('humamStudentsData', JSON.stringify(studentsData));
-            localStorage.setItem('humamTreatmentPlans', JSON.stringify(treatmentPlans));
-        }
-
-        // متغيرات للرسوم البيانية
         let behaviorChart = null;
         let comparisonChart = null;
 
-        // تعيين التاريخ الحالي
         document.getElementById('current-date').textContent = new Date().toLocaleDateString('ar-EG');
 
-        // تهيئة النظام
         document.addEventListener('DOMContentLoaded', function() {
             initializeSystem();
             initializeNavigation();
@@ -1800,51 +1740,33 @@
             initializeTreatmentPlansSystem();
         });
 
-        // تهيئة النظام الرئيسي
         function initializeSystem() {
-            // تحديث الإحصائيات
             updateStatistics();
-            
-            // تحديث قوائم الطلاب والمعلمين
             updateStudentsList();
             updateTeachersList();
-            
-            // إنشاء الرسوم البيانية
             createBehaviorChart();
             createComparisonChart();
-            
-            // تحديث أفضل الطلاب متحسنين
             updateTopImprovers();
         }
 
-        // نظام إدارة الطلاب
         function initializeStudentManagement() {
-            // إظهار/إخفاء نموذج إضافة طالب
             document.getElementById('add-student-btn').addEventListener('click', function() {
                 const form = document.getElementById('add-student-form');
                 form.style.display = form.style.display === 'none' ? 'block' : 'none';
             });
             
-            // إلغاء إضافة طالب
             document.getElementById('cancel-add-student').addEventListener('click', function() {
                 document.getElementById('add-student-form').style.display = 'none';
                 resetStudentForm();
             });
             
-            // حفظ طالب جديد
             document.getElementById('save-new-student').addEventListener('click', saveNewStudent);
-            
-            // البحث عن الطلاب
             document.getElementById('student-search').addEventListener('input', searchStudents);
-            
-            // تصدير البيانات
             document.getElementById('export-excel').addEventListener('click', exportToExcel);
             document.getElementById('export-pdf').addEventListener('click', exportToPDF);
         }
 
-        // نظام الخطط العلاجية
         function initializeTreatmentPlansSystem() {
-            // ملء قائمة الطلاب في نموذج الخطة الفردية
             const studentSelect = document.getElementById('student-name');
             studentSelect.innerHTML = '<option value="">اختر الطالب</option>';
             studentsData.forEach((student, index) => {
@@ -1854,33 +1776,45 @@
                 studentSelect.appendChild(option);
             });
             
-            // تحديث اسم المعلم عند تغيير المادة
-            document.getElementById('subject').addEventListener('change', function() {
-                updateTeacherName();
+            const subjectSelect = document.getElementById('subject');
+            const groupSubjectSelect = document.getElementById('group-subject');
+            
+            subjectSelect.innerHTML = '<option value="">اختر المادة</option>';
+            groupSubjectSelect.innerHTML = '<option value="">اختر المادة</option>';
+            
+            teachersData.forEach(teacher => {
+                const option1 = document.createElement('option');
+                option1.value = teacher.subject;
+                option1.textContent = `${teacher.subject} - ${teacher.name}`;
+                subjectSelect.appendChild(option1);
+                
+                const option2 = document.createElement('option');
+                option2.value = teacher.subject;
+                option2.textContent = teacher.subject;
+                groupSubjectSelect.appendChild(option2);
             });
             
-            document.getElementById('group-subject').addEventListener('change', function() {
-                updateGroupTeacherName();
+            document.getElementById('individual-plan-card').addEventListener('click', function() {
+                selectPlanType('individual');
             });
             
-            // تهيئة متابعة الأسابيع
+            document.getElementById('group-plan-card').addEventListener('click', function() {
+                selectPlanType('group');
+            });
+            
+            document.getElementById('subject').addEventListener('change', updateTeacherName);
+            document.getElementById('group-subject').addEventListener('change', updateGroupTeacherName);
+            
             initializeWeekTracker();
             
-            // حفظ الخطط
             document.getElementById('save-individual-plan').addEventListener('click', saveIndividualPlan);
             document.getElementById('save-group-plan').addEventListener('click', saveGroupPlan);
-            
-            // تصدير النماذج إلى PDF
             document.getElementById('export-individual-plan').addEventListener('click', exportIndividualPlanToPDF);
             document.getElementById('export-group-plan').addEventListener('click', exportGroupPlanToPDF);
             
-            // تحديث قائمة الطلاب للخطة الجماعية
             updateGroupStudentsList();
-            
-            // تحديث جدول الخطط العلاجية
             updateTreatmentPlansTable();
             
-            // إضافة مستمعي الأحداث لأزرار التقارير
             document.getElementById('generate-excellence-report').addEventListener('click', function() {
                 showNotification('جاري إنشاء تقرير الطلاب المتميزين وإرساله عبر ClassDojo...', 'info');
             });
@@ -1894,7 +1828,11 @@
             });
         }
 
-        // حفظ طالب جديد
+        function saveDataToLocalStorage() {
+            localStorage.setItem('humamStudentsData', JSON.stringify(studentsData));
+            localStorage.setItem('humamTreatmentPlans', JSON.stringify(treatmentPlans));
+        }
+
         function saveNewStudent() {
             const name = document.getElementById('new-student-name').value;
             
@@ -1903,7 +1841,6 @@
                 return;
             }
             
-            // جمع بيانات الطالب الجديد
             const newStudent = {
                 name: name,
                 before: {
@@ -1924,62 +1861,31 @@
                 }
             };
             
-            // إضافة الطالب الجديد إلى البيانات
             studentsData.push(newStudent);
-            
-            // حفظ البيانات في localStorage
             saveDataToLocalStorage();
-            
-            // تحديث النظام
             updateSystemAfterStudentAdded();
-            
-            // إغلاق النموذج وإعادة تعيينه
             document.getElementById('add-student-form').style.display = 'none';
             resetStudentForm();
-            
             showNotification('تم إضافة الطالب بنجاح وتحديث جميع الرسوم البيانية', 'success');
         }
 
-        // تحديث النظام بعد إضافة طالب جديد
         function updateSystemAfterStudentAdded() {
-            // تحديث الإحصائيات
             updateStatistics();
-            
-            // تحديث قائمة الطلاب
             updateStudentsList();
-            
-            // تحديث الرسوم البيانية
             updateCharts();
-            
-            // تحديث أفضل الطلاب متحسنين
             updateTopImprovers();
-            
-            // تحديث قائمة الطلاب في نموذج الخطط العلاجية
             initializeTreatmentPlansSystem();
         }
 
-        // إعادة تعيين نموذج إضافة طالب
         function resetStudentForm() {
             document.getElementById('new-student-name').value = '';
-            document.getElementById('before-interaction').value = '0';
-            document.getElementById('before-participation').value = '0';
-            document.getElementById('before-hardWork').value = '0';
-            document.getElementById('before-sleep').value = '0';
-            document.getElementById('before-interruption').value = '0';
-            document.getElementById('before-nonInteraction').value = '0';
-            document.getElementById('after-interaction').value = '0';
-            document.getElementById('after-participation').value = '0';
-            document.getElementById('after-hardWork').value = '0';
-            document.getElementById('after-sleep').value = '0';
-            document.getElementById('after-interruption').value = '0';
-            document.getElementById('after-nonInteraction').value = '0';
+            const inputs = ['before-interaction', 'before-participation', 'before-hardWork', 'before-sleep', 'before-interruption', 'before-nonInteraction', 'after-interaction', 'after-participation', 'after-hardWork', 'after-sleep', 'after-interruption', 'after-nonInteraction'];
+            inputs.forEach(id => document.getElementById(id).value = '0');
         }
 
-        // تحديث الإحصائيات
         function updateStatistics() {
             document.getElementById('total-students').textContent = studentsData.length;
             
-            // حساب الطلاب بحاجة متابعة (الطلاب الذين لديهم تحسن أقل من 20%)
             let needsFollowup = 0;
             studentsData.forEach(student => {
                 const totalBefore = student.before.interaction + student.before.participation + student.before.hardWork;
@@ -1988,11 +1894,8 @@
                 if (improvement < 20) needsFollowup++;
             });
             document.getElementById('needs-followup').textContent = needsFollowup;
-            
-            // مشاركة أولياء الأمور (افتراضي 78%)
             document.getElementById('parent-participation').textContent = "78%";
             
-            // متوسط التحسن
             let totalImprovement = 0;
             studentsData.forEach(student => {
                 const totalBefore = student.before.interaction + student.before.participation + student.before.hardWork;
@@ -2004,7 +1907,6 @@
             document.getElementById('avg-improvement').textContent = `${avgImprovement}%`;
         }
 
-        // تحديث قائمة الطلاب
         function updateStudentsList() {
             const studentsTable = document.getElementById('students-table');
             studentsTable.innerHTML = '';
@@ -2044,7 +1946,6 @@
                 studentsTable.appendChild(row);
             });
             
-            // إضافة مستمعي الأحداث لأزرار الحذف
             document.querySelectorAll('.delete-student-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const index = parseInt(this.getAttribute('data-index'));
@@ -2053,7 +1954,6 @@
             });
         }
 
-        // تحديث قائمة المعلمين
         function updateTeachersList() {
             const teachersList = document.getElementById('teachers-list');
             teachersList.innerHTML = '';
@@ -2070,7 +1970,6 @@
             });
         }
 
-        // حذف طالب
         function deleteStudent(index) {
             if (confirm('هل أنت متأكد من حذف هذا الطالب؟')) {
                 studentsData.splice(index, 1);
@@ -2080,30 +1979,20 @@
             }
         }
 
-        // البحث عن الطلاب
         function searchStudents() {
             const searchTerm = document.getElementById('student-search').value.toLowerCase();
             const rows = document.querySelectorAll('#students-table tr');
             
             rows.forEach(row => {
                 const name = row.cells[0].textContent.toLowerCase();
-                if (name.includes(searchTerm)) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
+                row.style.display = name.includes(searchTerm) ? '' : 'none';
             });
         }
 
-        // إنشاء رسم بياني لتوزيع السلوكيات
         function createBehaviorChart() {
             const ctx = document.getElementById('behaviorChart').getContext('2d');
             
-            // حساب المتوسطات
-            let totalPositiveBefore = 0;
-            let totalNegativeBefore = 0;
-            let totalPositiveAfter = 0;
-            let totalNegativeAfter = 0;
+            let totalPositiveBefore = 0, totalNegativeBefore = 0, totalPositiveAfter = 0, totalNegativeAfter = 0;
             
             studentsData.forEach(student => {
                 totalPositiveBefore += student.before.interaction + student.before.participation + student.before.hardWork;
@@ -2152,9 +2041,7 @@
                         }
                     },
                     plugins: {
-                        legend: {
-                            display: false
-                        },
+                        legend: { display: false },
                         title: {
                             display: true,
                             text: 'متوسط السلوكيات الإيجابية والسلبية'
@@ -2164,17 +2051,11 @@
             });
         }
 
-        // إنشاء رسم بياني للمقارنة
         function createComparisonChart() {
             const ctx = document.getElementById('comparisonChart').getContext('2d');
             
-            // حساب المتوسطات للسلوكيات الإيجابية قبل وبعد
-            let interactionBefore = 0;
-            let participationBefore = 0;
-            let hardWorkBefore = 0;
-            let interactionAfter = 0;
-            let participationAfter = 0;
-            let hardWorkAfter = 0;
+            let interactionBefore = 0, participationBefore = 0, hardWorkBefore = 0;
+            let interactionAfter = 0, participationAfter = 0, hardWorkAfter = 0;
             
             studentsData.forEach(student => {
                 interactionBefore += student.before.interaction;
@@ -2218,9 +2099,7 @@
                     maintainAspectRatio: false,
                     scales: {
                         r: {
-                            angleLines: {
-                                display: true
-                            },
+                            angleLines: { display: true },
                             suggestedMin: 0,
                             suggestedMax: 15
                         }
@@ -2235,21 +2114,17 @@
             });
         }
 
-        // تحديث الرسوم البيانية
         function updateCharts() {
             if (behaviorChart) behaviorChart.destroy();
             if (comparisonChart) comparisonChart.destroy();
-            
             createBehaviorChart();
             createComparisonChart();
         }
 
-        // تحديث أفضل الطلاب متحسنين
         function updateTopImprovers() {
             const topImproversTable = document.getElementById('top-improvers-table');
             topImproversTable.innerHTML = '';
             
-            // حساب التحسن لكل طالب
             const studentsWithImprovement = studentsData.map((student, index) => {
                 const totalBefore = student.before.interaction + student.before.participation + student.before.hardWork;
                 const totalAfter = student.after.interaction + student.after.participation + student.after.hardWork;
@@ -2265,10 +2140,7 @@
                 };
             });
             
-            // ترتيب الطلاب حسب التحسن
             studentsWithImprovement.sort((a, b) => b.improvement - a.improvement);
-            
-            // عرض أفضل 5 طلاب
             const top5 = studentsWithImprovement.slice(0, 5);
             
             top5.forEach((student, rank) => {
@@ -2285,7 +2157,6 @@
             });
         }
 
-        // نظام التنقل بين الصفحات
         function initializeNavigation() {
             document.querySelectorAll('.nav-link[data-page]').forEach(link => {
                 link.addEventListener('click', function(e) {
@@ -2293,7 +2164,6 @@
                     const pageId = this.getAttribute('data-page');
                     showPage(pageId);
                     
-                    // تحديث حالة التنقل النشط
                     document.querySelectorAll('.nav-link').forEach(navLink => {
                         navLink.classList.remove('active');
                     });
@@ -2303,16 +2173,12 @@
         }
 
         function showPage(pageId) {
-            // إخفاء جميع الصفحات
             document.querySelectorAll('.page-section').forEach(page => {
                 page.classList.remove('active');
             });
-            
-            // إظهار الصفحة المطلوبة
             document.getElementById(pageId).classList.add('active');
         }
 
-        // وظائف الخطط العلاجية
         function selectPlanType(type) {
             const individualCard = document.getElementById('individual-plan-card');
             const groupCard = document.getElementById('group-plan-card');
@@ -2351,9 +2217,7 @@
             for (let i = 1; i <= 16; i++) {
                 const weekItem = document.createElement('div');
                 weekItem.className = 'week-item';
-                if (i <= 8) {
-                    weekItem.classList.add('active');
-                }
+                if (i <= 8) weekItem.classList.add('active');
                 weekItem.innerHTML = `
                     <div>الأسبوع ${i}</div>
                     <div>
@@ -2386,15 +2250,12 @@
             const subject = document.getElementById('subject').value;
             const treatmentSteps = document.getElementById('treatment-steps').value;
             const progressIndicators = document.getElementById('progress-indicators').value;
-            const teacherNotes = document.getElementById('teacher-notes').value;
-            const parentSignature = document.getElementById('parent-signature').value;
             
             if (!studentIndex || !treatmentSteps || !progressIndicators) {
                 showNotification('يرجى ملء جميع الحقول المطلوبة', 'error');
                 return;
             }
             
-            // إنشاء خطة علاجية جديدة
             const newPlan = {
                 id: treatmentPlans.length + 1,
                 studentId: parseInt(studentIndex),
@@ -2407,29 +2268,22 @@
             };
             
             treatmentPlans.push(newPlan);
-            
-            // حفظ البيانات في localStorage
             saveDataToLocalStorage();
             
-            // إعادة تعيين النموذج
             document.getElementById('student-name').value = '';
             document.getElementById('treatment-steps').value = '';
             document.getElementById('progress-indicators').value = '';
             document.getElementById('teacher-notes').value = '';
             document.getElementById('parent-signature').value = '';
             
-            // تحديث الجدول
             updateTreatmentPlansTable();
-            
             showNotification('تم حفظ الخطة الفردية بنجاح', 'success');
         }
 
         function saveGroupPlan() {
             const subject = document.getElementById('group-subject').value;
-            const classLevel = document.getElementById('group-class').value;
             const notes = document.getElementById('group-notes').value;
             
-            // التحقق من اختيار الطلاب
             const selectedStudents = [];
             studentsData.forEach((student, index) => {
                 const checkbox = document.getElementById(`group-student-${index}`);
@@ -2443,10 +2297,9 @@
                 return;
             }
             
-            // إنشاء خطة جماعية جديدة
             const newPlan = {
                 id: treatmentPlans.length + 1,
-                studentId: null, // للخطط الجماعية
+                studentId: null,
                 type: "جماعية",
                 subject: document.getElementById('group-subject').options[document.getElementById('group-subject').selectedIndex].text,
                 startDate: new Date().toISOString().split('T')[0],
@@ -2457,24 +2310,15 @@
             };
             
             treatmentPlans.push(newPlan);
-            
-            // حفظ البيانات في localStorage
             saveDataToLocalStorage();
             
-            // إعادة تعيين النموذج
             document.getElementById('group-notes').value = '';
-            
-            // إلغاء تحديد جميع الطلاب
             studentsData.forEach((student, index) => {
                 const checkbox = document.getElementById(`group-student-${index}`);
-                if (checkbox) {
-                    checkbox.checked = false;
-                }
+                if (checkbox) checkbox.checked = false;
             });
             
-            // تحديث الجدول
             updateTreatmentPlansTable();
-            
             showNotification('تم حفظ الخطة الجماعية بنجاح', 'success');
         }
 
@@ -2485,23 +2329,8 @@
             treatmentPlans.forEach(plan => {
                 const student = plan.studentId !== null ? studentsData[plan.studentId] : { name: "مجموعة طلاب" };
                 
-                let progressClass = "";
-                if (plan.progress >= 80) {
-                    progressClass = "good-behavior";
-                } else if (plan.progress >= 50) {
-                    progressClass = "";
-                } else {
-                    progressClass = "bad-behavior";
-                }
-                
-                let statusClass = "";
-                if (plan.status === "نشط") {
-                    statusClass = "good-behavior";
-                } else if (plan.status === "مكتمل") {
-                    statusClass = "";
-                } else {
-                    statusClass = "bad-behavior";
-                }
+                let progressClass = plan.progress >= 80 ? "good-behavior" : plan.progress >= 50 ? "" : "bad-behavior";
+                let statusClass = plan.status === "نشط" ? "good-behavior" : "";
                 
                 const row = document.createElement('tr');
                 row.innerHTML = `
@@ -2523,191 +2352,47 @@
                 `;
                 tableBody.appendChild(row);
             });
-            
-            // إضافة مستمعي الأحداث للأزرار
-            document.querySelectorAll('.view-plan-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const planId = this.getAttribute('data-id');
-                    viewPlanDetails(planId);
-                });
-            });
-            
-            document.querySelectorAll('.edit-plan-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const planId = this.getAttribute('data-id');
-                    editPlan(planId);
-                });
-            });
         }
 
-        function viewPlanDetails(planId) {
-            const plan = treatmentPlans.find(p => p.id == planId);
-            if (plan) {
-                showNotification(`عرض تفاصيل الخطة العلاجية #${planId}`, 'info');
-                // هنا يمكنك فتح نموذج عرض التفاصيل
-            }
-        }
-
-        function editPlan(planId) {
-            const plan = treatmentPlans.find(p => p.id == planId);
-            if (plan) {
-                showNotification(`فتح نموذج تعديل الخطة العلاجية #${planId}`, 'info');
-                // هنا يمكنك فتح نموذج التعديل مع تعبئة البيانات
-            }
-        }
-
-        // تصدير الخطة الفردية إلى PDF مع دعم اللغة العربية
         function exportIndividualPlanToPDF() {
-            showNotification('جاري تصدير الخطة الفردية إلى PDF...', 'info');
-            
-            try {
-                const studentIndex = document.getElementById('student-name').value;
-                const studentName = studentIndex ? studentsData[studentIndex].name : '';
-                const subject = document.getElementById('subject').value;
-                const teacherName = document.getElementById('teacher-name').value;
-                const treatmentSteps = document.getElementById('treatment-steps').value;
-                const progressIndicators = document.getElementById('progress-indicators').value;
-                const teacherNotes = document.getElementById('teacher-notes').value;
-                const parentSignature = document.getElementById('parent-signature').value;
-                
-                const docDefinition = {
-                    content: [
-                        { text: 'الخطة العلاجية الفردية - نظام هُمام', style: 'header' },
-                        { text: '\n' },
-                        { text: `اسم الطالب: ${studentName}` },
-                        { text: `المادة: ${subject}` },
-                        { text: `المعلم المسؤول: ${teacherName}` },
-                        { text: '\n' },
-                        { text: 'الخطوات المقترحة للعلاج:', style: 'subheader' },
-                        { text: treatmentSteps, margin: [0, 5, 0, 10] },
-                        { text: 'مؤشرات التقدم:', style: 'subheader' },
-                        { text: progressIndicators, margin: [0, 5, 0, 10] },
-                        { text: 'ملاحظات المعلم:', style: 'subheader' },
-                        { text: teacherNotes, margin: [0, 5, 0, 10] },
-                        { text: '\n' },
-                        { text: `توقيع ولي الأمر: ${parentSignature}` },
-                        { text: 'توقيع المرشد الطلابي: منصور موسى حامطي' }
-                    ],
-                    styles: {
-                        header: {
-                            fontSize: 18,
-                            bold: true,
-                            alignment: 'center',
-                            margin: [0, 0, 0, 10]
-                        },
-                        subheader: {
-                            fontSize: 14,
-                            bold: true,
-                            margin: [0, 10, 0, 5]
-                        }
-                    },
-                    defaultStyle: {
-                        font: 'Tajawal',
-                        alignment: 'right'
-                    }
-                };
-                
-                pdfMake.createPdf(docDefinition).download('الخطة_العلاجية_الفردية.pdf');
-                
-                showNotification('تم تصدير الخطة الفردية إلى PDF بنجاح', 'success');
-            } catch (error) {
-                console.error('خطأ في تصدير PDF:', error);
-                showNotification('حدث خطأ أثناء تصدير PDF', 'error');
-            }
+            showNotification('تصدير PDF غير مدعوم حاليًا بسبب مشاكل في الخطوط العربية. يرجى استخدام وظيفة الطباعة من المتصفح.', 'info');
         }
 
-        // تصدير الخطة الجماعية إلى PDF مع دعم اللغة العربية
         function exportGroupPlanToPDF() {
-            showNotification('جاري تصدير الخطة الجماعية إلى PDF...', 'info');
-            
-            try {
-                const subject = document.getElementById('group-subject').value;
-                const classLevel = document.getElementById('group-class').value;
-                const teacherName = document.getElementById('group-teacher').value;
-                const notes = document.getElementById('group-notes').value;
-                
-                // جمع الطلاب المختارين
-                const selectedStudents = [];
-                studentsData.forEach((student, index) => {
-                    const checkbox = document.getElementById(`group-student-${index}`);
-                    if (checkbox && checkbox.checked) {
-                        selectedStudents.push(student.name);
-                    }
-                });
-                
-                // جمع الاستراتيجيات المختارة
-                const selectedStrategies = [];
-                const strategies = [
-                    { name: 'التعلم التعاوني', id: 'strategy1' },
-                    { name: 'التعلم النشط', id: 'strategy2' },
-                    { name: 'التفريد في التعليم', id: 'strategy3' },
-                    { name: 'التعلم القائم على المشاريع', id: 'strategy4' }
-                ];
-                
-                strategies.forEach(strategy => {
-                    const checkbox = document.getElementById(strategy.id);
-                    if (checkbox && checkbox.checked) {
-                        selectedStrategies.push(strategy.name);
-                    }
-                });
-                
-                const docDefinition = {
-                    content: [
-                        { text: 'الخطة العلاجية الجماعية - نظام هُمام', style: 'header' },
-                        { text: '\n' },
-                        { text: `المادة: ${subject}` },
-                        { text: `الصف: ${classLevel}` },
-                        { text: `المعلم المسؤول: ${teacherName}` },
-                        { text: '\n' },
-                        { text: 'الطلاب المستهدفون:', style: 'subheader' },
-                        ...selectedStudents.map(student => ({ text: `- ${student}`, margin: [10, 0, 0, 0] })),
-                        { text: '\n' },
-                        { text: 'الاستراتيجيات التعليمية المقترحة:', style: 'subheader' },
-                        ...selectedStrategies.map(strategy => ({ text: `- ${strategy}`, margin: [10, 0, 0, 0] })),
-                        { text: '\n' },
-                        { text: 'ملاحظات إضافية:', style: 'subheader' },
-                        { text: notes, margin: [0, 5, 0, 10] }
-                    ],
-                    styles: {
-                        header: {
-                            fontSize: 18,
-                            bold: true,
-                            alignment: 'center',
-                            margin: [0, 0, 0, 10]
-                        },
-                        subheader: {
-                            fontSize: 14,
-                            bold: true,
-                            margin: [0, 10, 0, 5]
-                        }
-                    },
-                    defaultStyle: {
-                        font: 'Tajawal',
-                        alignment: 'right'
-                    }
-                };
-                
-                pdfMake.createPdf(docDefinition).download('الخطة_العلاجية_الجماعية.pdf');
-                
-                showNotification('تم تصدير الخطة الجماعية إلى PDF بنجاح', 'success');
-            } catch (error) {
-                console.error('خطأ في تصدير PDF:', error);
-                showNotification('حدث خطأ أثناء تصدير PDF', 'error');
-            }
+            showNotification('تصدير PDF غير مدعوم حاليًا بسبب مشاكل في الخطوط العربية. يرجى استخدام وظيفة الطباعة من المتصفح.', 'info');
         }
 
-        // تصدير إلى Excel مع دعم RTL
         function exportToExcel() {
             showNotification('جاري تصدير البيانات إلى Excel...', 'info');
             
             try {
-                const table = document.getElementById('students-table-element');
+                const data = [];
+                data.push([
+                    'اسم الطالب',
+                    'التفاعل الصفي (قبل)', 'المشاركة الفاعلة (قبل)', 'العمل بجد (قبل)',
+                    'النوم (قبل)', 'قطع سير الحصة (قبل)', 'عدم تفاعل (قبل)',
+                    'التفاعل الصفي (بعد)', 'المشاركة الفاعلة (بعد)', 'العمل بجد (بعد)',
+                    'النوم (بعد)', 'قطع سير الحصة (بعد)', 'عدم تفاعل (بعد)',
+                    'التحسن (%)'
+                ]);
+                
+                studentsData.forEach(student => {
+                    const totalBefore = student.before.interaction + student.before.participation + student.before.hardWork;
+                    const totalAfter = student.after.interaction + student.after.participation + student.after.hardWork;
+                    const improvement = totalBefore > 0 ? ((totalAfter - totalBefore) / totalBefore) * 100 : 0;
+                    
+                    data.push([
+                        student.name,
+                        student.before.interaction, student.before.participation, student.before.hardWork,
+                        student.before.sleep, student.before.interruption, student.before.nonInteraction,
+                        student.after.interaction, student.after.participation, student.after.hardWork,
+                        student.after.sleep, student.after.interruption, student.after.nonInteraction,
+                        Math.round(improvement)
+                    ]);
+                });
+                
+                const ws = XLSX.utils.aoa_to_sheet(data);
                 const wb = XLSX.utils.book_new();
-                const ws = XLSX.utils.table_to_sheet(table);
-                
-                // تعيين اتجاه النص من اليمين لليسار
-                ws['!dir'] = 'rtl';
-                
                 XLSX.utils.book_append_sheet(wb, ws, 'الطلاب');
                 XLSX.writeFile(wb, 'بيانات_الطلاب.xlsx');
                 
@@ -2718,52 +2403,10 @@
             }
         }
 
-        // تصدير إلى PDF مع دعم اللغة العربية
         function exportToPDF() {
-            showNotification('جاري تصدير البيانات إلى PDF...', 'info');
-            
-            try {
-                const table = document.getElementById('students-table-element');
-                const rows = Array.from(table.querySelectorAll('tr')).map(tr =>
-                    Array.from(tr.querySelectorAll('td, th')).map(td => td.innerText)
-                );
-
-                const docDefinition = {
-                    content: [
-                        { text: 'قائمة الطلاب - نظام هُمام', style: 'header' },
-                        { text: '\n' },
-                        {
-                            table: {
-                                headerRows: 1,
-                                body: rows
-                            },
-                            layout: 'lightHorizontalLines'
-                        }
-                    ],
-                    styles: {
-                        header: {
-                            fontSize: 18,
-                            bold: true,
-                            alignment: 'center',
-                            margin: [0, 0, 0, 10]
-                        }
-                    },
-                    defaultStyle: {
-                        font: 'Tajawal',
-                        alignment: 'center'
-                    }
-                };
-                
-                pdfMake.createPdf(docDefinition).download('قائمة_الطلاب.pdf');
-                
-                showNotification('تم تصدير البيانات إلى PDF بنجاح', 'success');
-            } catch (error) {
-                console.error('خطأ في تصدير PDF:', error);
-                showNotification('حدث خطأ أثناء تصدير PDF', 'error');
-            }
+            showNotification('تصدير PDF غير مدعوم حاليًا بسبب مشاكل في الخطوط العربية. يرجى استخدام وظيفة الطباعة من المتصفح.', 'info');
         }
 
-        // إظهار الإشعارات
         function showNotification(message, type) {
             const notification = document.getElementById('notification');
             notification.textContent = message;
@@ -2773,16 +2416,6 @@
             setTimeout(() => {
                 notification.style.display = 'none';
             }, 3000);
-        }
-
-        // إظهار مؤشر التحميل
-        function showLoading() {
-            document.getElementById('loading-overlay').style.display = 'flex';
-        }
-
-        // إخفاء مؤشر التحميل
-        function hideLoading() {
-            document.getElementById('loading-overlay').style.display = 'none';
         }
     </script>
 </body>

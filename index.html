@@ -8,8 +8,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
@@ -33,6 +31,11 @@
             background-color: var(--background-color);
             color: var(--text-color);
             line-height: 1.6;
+        }
+        
+        /* تطبيق الخط على جميع العناصر */
+        canvas, table, button, input, select, textarea {
+            font-family: 'Tajawal', sans-serif !important;
         }
         
         .navbar {
@@ -1001,7 +1004,7 @@
                     
                     <!-- جدول الطلاب -->
                     <div class="table-responsive">
-                        <table class="student-table">
+                        <table class="student-table" id="students-table-element">
                             <thead>
                                 <tr>
                                     <th>اسم الطالب</th>
@@ -1578,6 +1581,16 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // تكوين الخط العربي لـ pdfmake
+        pdfMake.fonts = {
+            Tajawal: {
+                normal: 'https://cdn.jsdelivr.net/gh/google/fonts/ofl/tajawal/Tajawal-Regular.ttf',
+                bold: 'https://cdn.jsdelivr.net/gh/google/fonts/ofl/tajawal/Tajawal-Bold.ttf',
+                italics: 'https://cdn.jsdelivr.net/gh/google/fonts/ofl/tajawal/Tajawal-Regular.ttf',
+                bolditalics: 'https://cdn.jsdelivr.net/gh/google/fonts/ofl/tajawal/Tajawal-Bold.ttf'
+            }
+        };
+
         // بيانات الطلاب من ملف Excel المرفق - جميع الطلاب الـ 28
         let studentsData = JSON.parse(localStorage.getItem('humamStudentsData')) || [
             {
@@ -1611,7 +1624,7 @@
                 after: { interaction: 15, participation: 18, hardWork: 18, sleep: 2, interruption: 1, nonInteraction: 12 }
             },
             {
-                name: "مرزوق بن خالد ابن مرzوق السيف",
+                name: "مرزوق بن خالد ابن مرزوق السيف",
                 before: { interaction: 5, participation: 4, hardWork: 3, sleep: 12, interruption: 3, nonInteraction: 5 },
                 after: { interaction: 15, participation: 12, hardWork: 12, sleep: 4, interruption: 0, nonInteraction: 11 }
             },
@@ -1839,34 +1852,6 @@
                 option.value = index;
                 option.textContent = student.name;
                 studentSelect.appendChild(option);
-            });
-            
-            // ملء قائمة المواد في النماذج
-            const subjectSelect = document.getElementById('subject');
-            const groupSubjectSelect = document.getElementById('group-subject');
-            
-            subjectSelect.innerHTML = '<option value="">اختر المادة</option>';
-            groupSubjectSelect.innerHTML = '<option value="">اختر المادة</option>';
-            
-            teachersData.forEach(teacher => {
-                const option1 = document.createElement('option');
-                option1.value = teacher.subject;
-                option1.textContent = `${teacher.subject} - ${teacher.name}`;
-                subjectSelect.appendChild(option1);
-                
-                const option2 = document.createElement('option');
-                option2.value = teacher.subject;
-                option2.textContent = teacher.subject;
-                groupSubjectSelect.appendChild(option2);
-            });
-            
-            // اختيار نوع الخطة
-            document.getElementById('individual-plan-card').addEventListener('click', function() {
-                selectPlanType('individual');
-            });
-            
-            document.getElementById('group-plan-card').addEventListener('click', function() {
-                selectPlanType('group');
             });
             
             // تحديث اسم المعلم عند تغيير المادة
@@ -2576,13 +2561,13 @@
             showNotification('جاري تصدير الخطة الفردية إلى PDF...', 'info');
             
             try {
-                // استخدام pdfmake بدلاً من jsPDF لحل مشكلة اللغة العربية
                 const studentIndex = document.getElementById('student-name').value;
                 const studentName = studentIndex ? studentsData[studentIndex].name : '';
                 const subject = document.getElementById('subject').value;
                 const teacherName = document.getElementById('teacher-name').value;
                 const treatmentSteps = document.getElementById('treatment-steps').value;
                 const progressIndicators = document.getElementById('progress-indicators').value;
+                const teacherNotes = document.getElementById('teacher-notes').value;
                 const parentSignature = document.getElementById('parent-signature').value;
                 
                 const docDefinition = {
@@ -2597,6 +2582,8 @@
                         { text: treatmentSteps, margin: [0, 5, 0, 10] },
                         { text: 'مؤشرات التقدم:', style: 'subheader' },
                         { text: progressIndicators, margin: [0, 5, 0, 10] },
+                        { text: 'ملاحظات المعلم:', style: 'subheader' },
+                        { text: teacherNotes, margin: [0, 5, 0, 10] },
                         { text: '\n' },
                         { text: `توقيع ولي الأمر: ${parentSignature}` },
                         { text: 'توقيع المرشد الطلابي: منصور موسى حامطي' }
@@ -2634,7 +2621,6 @@
             showNotification('جاري تصدير الخطة الجماعية إلى PDF...', 'info');
             
             try {
-                // استخدام pdfmake بدلاً من jsPDF لحل مشكلة اللغة العربية
                 const subject = document.getElementById('group-subject').value;
                 const classLevel = document.getElementById('group-class').value;
                 const teacherName = document.getElementById('group-teacher').value;
@@ -2710,48 +2696,19 @@
             }
         }
 
-        // تصدير إلى Excel
+        // تصدير إلى Excel مع دعم RTL
         function exportToExcel() {
             showNotification('جاري تصدير البيانات إلى Excel...', 'info');
             
             try {
-                // إنشاء مصفوفة للبيانات
-                const data = [];
-                
-                // إضافة العناوين
-                data.push([
-                    'اسم الطالب',
-                    'التفاعل الصفي (قبل)', 'المشاركة الفاعلة (قبل)', 'العمل بجد (قبل)',
-                    'النوم (قبل)', 'قطع سير الحصة (قبل)', 'عدم تفاعل (قبل)',
-                    'التفاعل الصفي (بعد)', 'المشاركة الفاعلة (بعد)', 'العمل بجد (بعد)',
-                    'النوم (بعد)', 'قطع سير الحصة (بعد)', 'عدم تفاعل (بعد)',
-                    'التحسن (%)'
-                ]);
-                
-                // إضافة بيانات الطلاب
-                studentsData.forEach(student => {
-                    const totalBefore = student.before.interaction + student.before.participation + student.before.hardWork;
-                    const totalAfter = student.after.interaction + student.after.participation + student.after.hardWork;
-                    const improvement = totalBefore > 0 ? ((totalAfter - totalBefore) / totalBefore) * 100 : 0;
-                    
-                    data.push([
-                        student.name,
-                        student.before.interaction, student.before.participation, student.before.hardWork,
-                        student.before.sleep, student.before.interruption, student.before.nonInteraction,
-                        student.after.interaction, student.after.participation, student.after.hardWork,
-                        student.after.sleep, student.after.interruption, student.after.nonInteraction,
-                        Math.round(improvement)
-                    ]);
-                });
-                
-                // إنشاء ورقة عمل
-                const ws = XLSX.utils.aoa_to_sheet(data);
-                
-                // إنشاء مصنف وإضافة الورقة
+                const table = document.getElementById('students-table-element');
                 const wb = XLSX.utils.book_new();
-                XLSX.utils.book_append_sheet(wb, ws, 'الطلاب');
+                const ws = XLSX.utils.table_to_sheet(table);
                 
-                // تصدير الملف
+                // تعيين اتجاه النص من اليمين لليسار
+                ws['!dir'] = 'rtl';
+                
+                XLSX.utils.book_append_sheet(wb, ws, 'الطلاب');
                 XLSX.writeFile(wb, 'بيانات_الطلاب.xlsx');
                 
                 showNotification('تم تصدير البيانات إلى Excel بنجاح', 'success');
@@ -2766,38 +2723,21 @@
             showNotification('جاري تصدير البيانات إلى PDF...', 'info');
             
             try {
-                // استخدام pdfmake بدلاً من jsPDF لحل مشكلة اللغة العربية
-                const tableBody = studentsData.map(student => {
-                    const totalBefore = student.before.interaction + student.before.participation + student.before.hardWork;
-                    const totalAfter = student.after.interaction + student.after.participation + student.after.hardWork;
-                    const improvement = totalBefore > 0 ? ((totalAfter - totalBefore) / totalBefore) * 100 : 0;
-                    
-                    return [
-                        student.name,
-                        totalBefore.toString(),
-                        totalAfter.toString(),
-                        `${Math.round(improvement)}%`
-                    ];
-                });
-                
+                const table = document.getElementById('students-table-element');
+                const rows = Array.from(table.querySelectorAll('tr')).map(tr =>
+                    Array.from(tr.querySelectorAll('td, th')).map(td => td.innerText)
+                );
+
                 const docDefinition = {
                     content: [
-                        { text: 'تقرير الطلاب - نظام هُمام', style: 'header' },
+                        { text: 'قائمة الطلاب - نظام هُمام', style: 'header' },
                         { text: '\n' },
                         {
                             table: {
                                 headerRows: 1,
-                                widths: ['*', 'auto', 'auto', 'auto'],
-                                body: [
-                                    [
-                                        { text: 'اسم الطالب', style: 'tableHeader' },
-                                        { text: 'النقاط قبل', style: 'tableHeader' },
-                                        { text: 'النقاط بعد', style: 'tableHeader' },
-                                        { text: 'التحسن', style: 'tableHeader' }
-                                    ],
-                                    ...tableBody
-                                ]
-                            }
+                                body: rows
+                            },
+                            layout: 'lightHorizontalLines'
                         }
                     ],
                     styles: {
@@ -2806,21 +2746,15 @@
                             bold: true,
                             alignment: 'center',
                             margin: [0, 0, 0, 10]
-                        },
-                        tableHeader: {
-                            bold: true,
-                            fontSize: 12,
-                            color: 'white',
-                            fillColor: '#1a5276'
                         }
                     },
                     defaultStyle: {
                         font: 'Tajawal',
-                        alignment: 'right'
+                        alignment: 'center'
                     }
                 };
                 
-                pdfMake.createPdf(docDefinition).download('تقرير_الطلاب.pdf');
+                pdfMake.createPdf(docDefinition).download('قائمة_الطلاب.pdf');
                 
                 showNotification('تم تصدير البيانات إلى PDF بنجاح', 'success');
             } catch (error) {
